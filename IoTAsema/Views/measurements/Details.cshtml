@@ -1,0 +1,31 @@
+﻿@model IoTAsema.Models.measurements
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Tiedot</h2>
+
+<div>
+    <h4>Mittaus</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Aika</dt>
+        <dd>@Html.DisplayFor(model => model.Time)</dd>
+        <dt>Tyyppi</dt>
+        <dd>@Html.DisplayFor(model => model.Type)</dd>
+        <dt>Lämpötila C</dt>
+        <dd>@Html.DisplayFor(model => model.Celsius)</dd>
+        <dt>Lämpötila F</dt>
+        <dd>@Html.DisplayFor(model => model.Fahrenheit)</dd>
+        <dt>Kosteus%</dt>
+        <dd>@Html.DisplayFor(model => model.Humidity)</dd>
+        <dt>Laite</dt>
+        <dd>@Html.DisplayFor(model => model.devices.Device)</dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Muokkaa", "Edit", new { id = Model.MeasurementID }) |
+    @Html.ActionLink("Takaisin", "Index")
+</p>

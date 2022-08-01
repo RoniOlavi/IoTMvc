@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="https://fi.wikipedia.org/wiki/Esineiden_internet">IoT</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="~/Home">
+                        KOTI
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Sisään</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="~/measurements">Mittaukset</a>
+                        <a class="dropdown-item" href="~/commands">Etäohjaus</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="~/Home/Logout">Kirjaudu ulos</a>
+                    </div>
+                </li>
+            </ul>
+            <form action="https://www.ilmatieteenlaitos.fi/">
+                <input class="btn btn-primary" type="submit" value="Ilmatieteenlaitos" />
+            </form>
+        </div>
+    </nav>
+</body>
+</html>

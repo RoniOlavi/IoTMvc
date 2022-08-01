@@ -1,0 +1,25 @@
+﻿@model IoTAsema.Models.commands
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>commands</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Command)</dt>
+        <dd>@Html.DisplayFor(model => model.Command)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Executed)</dt>
+        <dd>@Html.DisplayFor(model => model.Executed)</dd>
+        <dt>@Html.DisplayNameFor(model => model.devices.Device)</dt>
+        <dd>@Html.DisplayFor(model => model.devices.Device)</dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CommandID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

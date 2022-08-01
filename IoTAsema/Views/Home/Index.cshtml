@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@section scripts{
+    <script type="text/javascript">
+		$(window).on('load', function () {
+			if (@ViewBag.LoginError == 1) {
+				$('#LoginRuutu').modal('show');
+			}
+		});
+    </script>
+}
+@{
+    Html.RenderPartial("_LoginModal");
+}
+
+<div class="container-fluid">
+    <h1>IoT-Asema</h1>
+    <p class="lead">Käyttöliittymä Raspberry Pi mittauksille ja etäohjaukselle..</p>
+    <img src="~/Image/iotspace.jpeg" style="height: 600px; width:1100px" allowfullscreen />
+</div>

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<IoTAsema.Models.measurements>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Mittaukset</h2>
+
+@using (Html.BeginForm("Index", "measurements", FormMethod.Get))
+{
+    <div class="input-group" style="padding:0 0 15px 0">
+        @Html.Label("Etsi laite:", new { @style = "font-size:20px;margin-top:5px" })
+        @Html.TextBox("searchstring", "", new { @class = "form control", @style = "width:200px;height:30px;margin-left:20px;margin-top:5px;margin-right:20px" })
+        <input type="submit" value="Hae" class="btn btn-outline-success" style="padding:9px 18px 9px 18px" />
+    </div>
+}
+
+@using (Html.BeginForm("GetWeather", "measurements", FormMethod.Get)) // sää haku toimii, pitää muotoilla tulostus!!
+{
+    <div class="input-group" style="padding:0 0 15px 0">
+        @Html.Label("Hae paikkakunnan sää:", new { @style = "font-size:20px;margin-top:5px" })
+        @Html.TextBox("key", "", new { @class = "form control", @style = "width:200px;height:30px;margin-left:20px;margin-top:5px;margin-right:20px" })
+        <input type="submit" value="Hae" class="btn btn-outline-success" style="padding:9px 18px 9px 18px" />
+    </div>
+}
+
+
+<table class="table">
+    <tr>
+        <th>Aika</th>
+        <th>
+            Tyyppi
+            <br>Sisä= 1
+            <br>Ulko= 2
+        </th>
+        <th>Paikka</th>
+        <th>Lämpötila C</th>
+        <th>Lämpötila F</th>
+        <th>Kosteus %</th>
+        <th>Laite</th>
+    </tr>
+
+    @foreach (IoTAsema.Models.measurements mitt in Model)
+    {
+<tr>
+    <td>@Html.DisplayFor(modelItem => mitt.Time)</td>
+    <td>@Html.DisplayFor(modelItem => mitt.Type)</td>
+    <td>@Html.DisplayFor(modelItem => mitt.Region)</td>
+    <td>@Html.DisplayFor(modelItem => mitt.Celsius)</td>
+    <td>@Html.DisplayFor(modelItem => mitt.Fahrenheit)</td>
+    <td>@Html.DisplayFor(modelItem => mitt.Humidity)</td>
+    <td>@Html.DisplayFor(modelItem => mitt.devices.Device)</td>
+    <td class='text-nowrap'>
+        <a class="btn btn-secondary" href="~/measurements/Edit/@mitt.MeasurementID">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
+            </svg>
+        </a>
+        <a class="btn btn-secondary" href="~/measurements/Details/@mitt.MeasurementID">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-lg" viewBox="0 0 16 16">
+                <path d="m10.277 5.433-4.031.505-.145.67.794.145c.516.123.619.309.505.824L6.101 13.68c-.34 1.578.186 2.32 1.423 2.32.959 0 2.072-.443 2.577-1.052l.155-.732c-.35.31-.866.434-1.206.434-.485 0-.66-.34-.536-.939l1.763-8.278zm.122-3.673a1.76 1.76 0 1 1-3.52 0 1.76 1.76 0 0 1 3.52 0z" />
+            </svg>
+        </a>
+        <a class="btn btn-outline-danger" href="~/measurements/Delete/@mitt.MeasurementID">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+            </svg>
+        </a>
+    </td>
+</tr>
+    }
+
+</table>
