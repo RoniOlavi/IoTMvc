@@ -1,0 +1,68 @@
+import time
+import board
+import adafruit_dht
+import urllib.request # Careeria azure yhteyden muodostusta varten url request!
+
+# Initial the dht device, with data pin connected to:
+#dhtDevice = adafruit_dht.DHT22(board.D18)
+
+# you can pass DHT22 use_pulseio=False if you wouldn't like to use pulseio.
+# This may be necessary on a Linux single board computer like the Raspberry Pi,
+# but it will not work in CircuitPython.
+dhtDevice = adafruit_dht.DHT22(board.D4, use_pulseio=False)
+
+# Careeria azure määritykset alla
+DeviceID=86 #Kovakoodattu laite-id careerian azure-palvelinta varten!
+Type=1 # careeria azure-palvelimen tyyppi 1 = lämpötila
+Region="koti"
+
+while True:
+        try:
+            # Print the values to the serial port
+            temperature_c = dhtDevice.temperature
+            temperature_f = temperature_c * (9 / 5) + 32
+            humidity = dhtDevice.humidity
+            print(
+                "Lämpö: {:.1f} F / {:.1f} C    Kosteus: {}% ".format(
+                    temperature_f, temperature_c, humidity
+                )
+            )
+            
+            #azure yhteyttä varten!
+            url = "https://iotasema20220219164058.azurewebsites.net/measurements/store/"+str(DeviceID)+"?Celsius="+str(temperature_c)+"&Fahrenheit="+str(temperature_f)+"&Humidity="+str(humidity)+"&Type="+str(Type)+"&Region="+str(Region)
+            print(url)
+            htmlfile = urllib.request.urlopen(url)
+            htmltext = htmlfile.read()
+            print(htmltext)
+
+        except RuntimeError as error:
+            # Errors happen fairly often, DHT's are hard to read, just keep going
+            print(error.args[0])
+            time.sleep(4.0)
+            continue
+        except Exception as error:
+            dhtDevice.exit()
+            raise error
+
+        time.sleep(10.0)
+
+
+while True:
+    url = "https://iotasema20220219164058.azurewebsites.net/commands/getcommand/"+str(DeviceID)
+    print(url)
+    htmlfile = urllib.request.urlopen(url)
+    commandtext = str(htmlfile.read())
+    if (commandtext.upper() == "B'TEMPON'"):
+        print("TEMP " + commandtext)
+        Mittaa_Lampo()
+
+        url = "https://iotasema20220219164058.azurewebsites.net/commands/completed/"+str(DeviceID)
+        urllib.request.urlopen(url)
+        print("Komento TEMPON suoritettu.\r")
+    elif (commandtext.upper() == "B'TEMPOFF'"):
+        print("TEMP " + commandtext)
+        url = "https://iotasema20220219164058.azurewebsites.net/commands/completed/"+str(DeviceID)
+        urllib.request.urlopen(url)
+        print("Ei mitään lopetettavaa!")
+    else:
+        print("Ei ajettavia komentoja")  

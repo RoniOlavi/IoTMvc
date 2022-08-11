@@ -5,16 +5,16 @@
 }
 
 <h2>Komennot</h2>
-<p>Etäohjaus IoT-laitteelle. Laitteen on oltava päällä ja sovellus käynnissä. Sovellus "kuuntelee" tätä sivua ja kun asetat "TempOn + executed", laite aloittaa mittauksen.</p>
+<p>Etäohjaus IoT-laitteelle. Laitteen on oltava päällä ja sovellus käynnissä. Sovellus "kuuntelee" tätä sivua ja kun asetat "TempOn" ja "Sammutus" Ei-aktiivinen, laite aloittaa mittauksen.</p>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Lisää uusi", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>@Html.DisplayNameFor(model => model.Command)</th>
-        <th>@Html.DisplayNameFor(model => model.Executed)</th>
-        <th>@Html.DisplayNameFor(model => model.devices.Device)</th>
+        <th>Komento</th>
+        <th>Sammutus</th>
+        <th>Laite</th>
         <th></th>
     </tr>
 
@@ -23,10 +23,23 @@
         <td>@Html.DisplayFor(modelItem => item.Command)</td>
         <td>@Html.DisplayFor(modelItem => item.Executed)</td>
         <td>@Html.DisplayFor(modelItem => item.devices.Device)</td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CommandID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CommandID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CommandID })
+        <td class='text-nowrap'>
+            <a class="btn btn-secondary" href="~/commands/Edit/@item.CommandID">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
+                </svg>
+            </a>
+            <a class="btn btn-secondary" href="~/commands/Details/@item.CommandID">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-lg" viewBox="0 0 16 16">
+                    <path d="m10.277 5.433-4.031.505-.145.67.794.145c.516.123.619.309.505.824L6.101 13.68c-.34 1.578.186 2.32 1.423 2.32.959 0 2.072-.443 2.577-1.052l.155-.732c-.35.31-.866.434-1.206.434-.485 0-.66-.34-.536-.939l1.763-8.278zm.122-3.673a1.76 1.76 0 1 1-3.52 0 1.76 1.76 0 0 1 3.52 0z" />
+                </svg>
+            </a>
+            <a class="btn btn-outline-danger" href="~/commands/Delete/@item.CommandID">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                </svg>
+            </a>
         </td>
     </tr>
 }

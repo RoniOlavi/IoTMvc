@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using System.Globalization;
 using IoTAsema.Models;
@@ -67,13 +65,26 @@ namespace IoTAsema.Controllers
 
 
         // GET: measurements
-        public ActionResult Index(string searchstring)
+        public ActionResult Index(string searchstring, string sortOrder)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.TimeSortParm = String.IsNullOrEmpty(sortOrder) ? "time_desc" : "";
             var measurements = db.measurements.Include(m => m.devices);
 
             if (!string.IsNullOrEmpty(searchstring))
             {
                 measurements = measurements.Where(a => a.devices.Device.Contains(searchstring)); // Hakee laitteen!
+            }
+
+            switch (sortOrder)
+            {
+                case "time_desc":
+                    measurements = measurements.OrderByDescending(a => a.Time);
+                    break;
+
+                default:
+                    measurements = measurements.OrderBy(a => a.Time);
+                    break;
             }
 
             return View(measurements.ToList());

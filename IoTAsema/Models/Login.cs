@@ -11,11 +11,13 @@ namespace IoTAsema.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Login
     {
         public int LoginID { get; set; }
         public string UserName { get; set; }
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         public string LoginErrorMessage { get; set; }
     }

@@ -15,7 +15,7 @@
     </div>
 }
 
-@using (Html.BeginForm("GetWeather", "measurements", FormMethod.Get)) // sää haku toimii, pitää muotoilla tulostus!!
+@using (Html.BeginForm("GetWeather", "measurements", FormMethod.Get))
 {
     <div class="input-group" style="padding:0 0 15px 0">
         @Html.Label("Hae paikkakunnan sää:", new { @style = "font-size:20px;margin-top:5px" })
@@ -27,7 +27,7 @@
 
 <table class="table">
     <tr>
-        <th>Aika</th>
+        <th>@Html.ActionLink("Aika", "Index", new { sortOrder = ViewBag.TimeSortParm })</th>
         <th>
             Tyyppi
             <br>Sisä= 1
